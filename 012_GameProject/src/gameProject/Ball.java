@@ -10,9 +10,7 @@ import javax.imageio.ImageIO;
 
 public class Ball {
 	BufferedImage img;
-	private ProjectileMotion track, trackLine;
-	private int[] xs, ys;
-	public boolean drawLine;
+	private ProjectileMotion track;
 	private int x, y, drawSizeX, drawSizeY;
 	
 	public Ball() {
@@ -22,8 +20,6 @@ public class Ball {
 			e.printStackTrace();
 		}
 		track = new ProjectileMotion();
-		trackLine = new ProjectileMotion();
-		drawLine = true;
 		this.x = 0;
 		this.y = 500;
 		this.drawSizeX = 100;
@@ -53,7 +49,6 @@ public class Ball {
 	public void changeDir(int x, int y) {
 		double xT = (double) (x - this.x - (drawSizeX / 2));
 		double yT = (double) (y - this.y - (drawSizeY / 2));
-//		track.setAngle(Math.atan2(yT, xT)*(180.0/Math.PI)); //
 		track.setAngle((float)Math.toDegrees(Math.atan2(yT, xT)));
 	}
 	
@@ -64,5 +59,8 @@ public class Ball {
 			track.next();
 	}
 	
+	public void setSpeed(int speed) {
+		this.track.setSpeed(speed);
+	}
 
 }

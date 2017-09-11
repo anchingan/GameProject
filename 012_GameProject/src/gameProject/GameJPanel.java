@@ -39,18 +39,26 @@ public class GameJPanel extends JPanel {
 		public void mouseMoved(MouseEvent e) {
 			trackLine = new ProjectileMotion();
 			if (drawLine) {
-				if (e.getX() < ball.getX() && e.getY() > ball.getY()) {
-					double xT = (double) (e.getX() - ball.getX() - 50);
-					double yT = (double) (e.getY() - ball.getY() - 50);
-					trackLine.setAngle((float)Math.toDegrees(Math.atan2(yT, xT)));
-//					trackLine.setAngle(Math.atan2(yT, xT)*(180.0/Math.PI));//
-				}
+//				if (e.getX() < ball.getX() && e.getY() > ball.getY()) {
+					int dX = (e.getX() - (int) ball.getX() - 50);
+					int dY = (e.getY() - (int) ball.getY() - 50);
+					double xT = (double) (dX);
+					double yT = (double) (dY);
+//					double xT = (double) (e.getX() - ball.getX() - 50);
+//					double yT = (double) (e.getY() - ball.getY() - 50);
+					trackLine.setSpeed((int) Math.sqrt((Math.pow(dX, 2) + Math.pow(dY, 2))));
+					trackLine.setAngle(Math.atan2(yT, xT)*(180.0/Math.PI));
+//					trackLine.setAngle((float)Math.toDegrees(Math.atan2(yT, xT)));
+//				}
 			}
 		}
 		
 		public void mousePressed(MouseEvent e) {
 			if (e.getButton() == MouseEvent.BUTTON1) {
 				drawLine = false;
+				int dX = (e.getX() - (int) ball.getX() - 50);
+				int dY = (e.getY() - (int) ball.getY() - 50);
+				trackLine.setSpeed((int) Math.sqrt((Math.pow(dX, 2) + Math.pow(dY, 2))));
 				ball.changeDir(e.getX(), e.getY());
 				if (ballMove)
 					ballMove = false;

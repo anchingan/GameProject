@@ -38,8 +38,6 @@ public class ProjectileMotion  {
     }
     
     private void setSpeedComponent() {
-//    		this.vx = this.speed*Math.cos(this.angle*(Math.PI/180.0));
-//    		this.vy = this.speed*Math.sin(this.angle*(Math.PI/180.0));
     		this.vx = this.speed*Math.cos(Math.toRadians(this.angle));
     		this.vy = this.speed*Math.sin(Math.toRadians(this.angle));
     }
@@ -61,8 +59,11 @@ public class ProjectileMotion  {
     }
     
     public void setSpeed(int speed) {
+//    		System.out.println(speed);
     		if (speed > 0)
-    			this.speed = speed;
+    			this.speed = speed * 1.2;
+//    			this.speed *= speed / 500;
+//    		System.out.println(this.speed);
     }
     
     public void setGround(int ground) {
@@ -115,23 +116,11 @@ public class ProjectileMotion  {
     		points[0] = x;
     		points[1] = y;
     		this.deltaTime = 1;
-//    		ArrayList<Integer> xs = new ArrayList<Integer>();//
-//    		ArrayList<Integer> ys = new ArrayList<Integer>();//
-//    		do {//
-//    			xs.add(50 + (int) this.x);//
-//    			ys.add(450 - (int) this.y);//
-//    			this.next();//
-//    		} while (this.y <= this.ground);//
     		for (int i = 0; i < 12; i++) {
     			x[i] = 50 + (int) this.x;
         		y[i] = 550 - (int) this.y;
         		this.next();
     		}
-//    		int[] x = xs.stream().mapToInt(i -> i).toArray();//
-//    		int[] y = ys.stream().mapToInt(i -> i).toArray();//
-//    		points[0] = x;//
-//    		points[1] = y;//
-    		
     		return points;
     }
 	
