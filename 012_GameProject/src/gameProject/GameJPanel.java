@@ -11,13 +11,16 @@ import javax.swing.JPanel;
 public class GameJPanel extends JPanel {
 	Ball ball;
 	int sx, sy;
-	private boolean ballMove;
+	private boolean ballMove, drawLine;
+	private ProjectileMotion trackLine;
 	
 	public GameJPanel() {
-		ball = new Ball();
+		ball = new Ball(30, 500);
 		sx = 0;
 		sy = 0;
 		ballMove = false;
+		drawLine = true;
+		trackLine = new ProjectileMotion();
 		
 		this.addMouseListener(new CMyListener1());
 		this.addMouseMotionListener(new CMyListener1());
@@ -34,10 +37,21 @@ public class GameJPanel extends JPanel {
 	
 	class CMyListener1 extends MouseAdapter {
 		public void mouseMoved(MouseEvent e) {
+			trackLine = new ProjectileMotion();
+			if (drawLine) {
+				if (e.getX() < ball.getX() && e.getY() > ball.getY()) {
+					double xT = (double) (e.getX() - ball.getX() - 50);
+					double yT = (double) (e.getY() - ball.getY() - 50);
+					trackLine.setAngle((float)Math.toDegrees(Math.atan2(yT, xT)));
+//					trackLine.setAngle(Math.atan2(yT, xT)*(180.0/Math.PI));//
+				}
+			}
 		}
 		
 		public void mousePressed(MouseEvent e) {
 			if (e.getButton() == MouseEvent.BUTTON1) {
+				drawLine = false;
+				ball.changeDir(e.getX(), e.getY());
 				if (ballMove)
 					ballMove = false;
 				else
@@ -48,7 +62,11 @@ public class GameJPanel extends JPanel {
 	
 	@Override
 	public void paint(Graphics g) {
+		if (drawLine) {
+			trackLine.paintLine(g);
+		}
 		ball.paint(g);
 	}
+	
 
 }

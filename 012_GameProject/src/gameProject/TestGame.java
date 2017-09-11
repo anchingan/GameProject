@@ -12,11 +12,10 @@ public class TestGame {
 		final JFrame f = new JFrame();
 		GameJPanel gm = new GameJPanel();
 		f.setTitle("Ball game");
-		f.setSize(1000, 1000);
+		f.setSize(1600, 800);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.add(gm);
 		f.setVisible(true);
-		
 		Timer timer = new Timer(100, 
 				new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
